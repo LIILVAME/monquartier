@@ -230,22 +230,30 @@ function filterContent(commune) {
 // Modal d'onboarding
 function initOnboardingModal() {
     const modal = document.getElementById('onboardingModal');
-    const slides = document.querySelectorAll('.modal-slide');
-    const indicators = document.querySelectorAll('.indicator');
-    const skipBtn = document.querySelector('.modal-btn-skip');
-    const nextBtn = document.querySelector('.modal-btn-next');
-    const startBtn = document.querySelector('.modal-btn-start');
-    
+    if (!modal) return;
+
+    const slides = modal.querySelectorAll('.modal-slide');
+    const indicators = modal.querySelectorAll('.indicator');
+    const skipBtn = modal.querySelector('.modal-btn-skip');
+    const nextBtn = modal.querySelector('.modal-btn-next');
+    const startBtn = modal.querySelector('.modal-btn-start');
+
+    if (!skipBtn || !nextBtn || !startBtn || slides.length === 0) {
+        return;
+    }
+
     let currentSlide = 0;
-    
+
     // Vérifier si l'utilisateur a déjà vu l'onboarding
     if (localStorage.getItem('onboarding-seen') === 'true') {
         modal.classList.add('hidden');
+        modal.setAttribute('aria-hidden', 'true');
         return;
     }
-    
+
     // Afficher le modal
     modal.classList.remove('hidden');
+    modal.setAttribute('aria-hidden', 'false');
     showSlide(currentSlide);
     
     // Navigation des slides
@@ -285,6 +293,7 @@ function initOnboardingModal() {
     
     function closeModal() {
         modal.classList.add('hidden');
+        modal.setAttribute('aria-hidden', 'true');
         localStorage.setItem('onboarding-seen', 'true');
     }
     
@@ -380,15 +389,15 @@ function initFormValidation() {
 function handleEvaluationSubmission(form) {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
-    
+
     // Validation des données
     if (!data.commune || !data.quartier) {
         showNotification('Veuillez sélectionner votre commune et votre quartier', 'error');
         return;
     }
-    
+
     // Vérification qu'au moins une note a été donnée
-    const hasRating = ['securite', 'proprete', 'transport'].some(criterion => data[criterion]);
+    const hasRating = ['securite', 'proprete', 'transports'].some(criterion => data[criterion]);
     if (!hasRating) {
         showNotification('Veuillez donner au moins une note', 'error');
         return;
@@ -631,6 +640,7 @@ function initStepNavigation() {
         progressSteps.forEach(step => {
             step.classList.remove('active');
             step.classList.remove('completed');
+            step.removeAttribute('aria-current');
         });
 
         // Afficher l'étape courante
@@ -643,6 +653,7 @@ function initStepNavigation() {
         
         if (currentProgressStep) {
             currentProgressStep.classList.add('active');
+            currentProgressStep.setAttribute('aria-current', 'step');
         }
 
         // Marquer les étapes précédentes comme complétées

@@ -167,10 +167,10 @@
                     </div>
 
                 <!-- Indicateur de progression simple -->
-                <div class="mq-progress-indicator">
-                    <div class="mq-progress-step mq-progress-active" data-step="1">📍</div>
-                    <div class="mq-progress-step" data-step="2">⭐</div>
-                    <div class="mq-progress-step" data-step="3">💬</div>
+                <div class="progress-indicator" role="group" aria-label="Progression du formulaire">
+                    <div class="progress-step active" data-step="1" aria-current="step">📍</div>
+                    <div class="progress-step" data-step="2">⭐</div>
+                    <div class="progress-step" data-step="3">💬</div>
                 </div>
 
                 <div class="evaluation-body">
@@ -208,7 +208,7 @@
                                 </select>
                             </div>
                         </div>
-                        <button type="button" class="btn-next-enhanced">
+                        <button type="button" class="btn-next-enhanced btn-next">
                             <span class="btn-text">Suivant</span>
                             <span class="btn-arrow">→</span>
                         </button>
@@ -415,7 +415,7 @@
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <!-- Modal d'onboarding -->
-    <div id="onboardingModal" class="modal-overlay">
+    <div id="onboardingModal" class="modal-overlay hidden" aria-hidden="true">
         <div class="modal-content">
             <div class="modal-slides">
                 <!-- Slide 1 -->
