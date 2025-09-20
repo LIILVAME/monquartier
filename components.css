@@ -1,0 +1,380 @@
+/* ===================================
+   COMPOSANTS MONQUARTIER
+   Boutons, cartes, formulaires et plus
+   =================================== */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* === BOUTONS === */
+
+/* Bouton Principal */
+.mq-btn-primary {
+  @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white
+         bg-gradient-to-r from-blue-500 to-blue-600
+         border border-transparent rounded-xl
+         shadow-lg hover:shadow-xl
+         transition-all duration-300 ease-out
+         focus:outline-none focus:ring-3 focus:ring-blue-400 focus:ring-offset-2
+         hover:from-blue-600 hover:to-blue-700 hover:-translate-y-0.5
+         active:scale-98 active:translate-y-0
+         disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-lg disabled:hover:translate-y-0
+         relative overflow-hidden;
+}
+
+/* Animation de brillance au survol */
+.mq-btn-primary::before {
+  content: '';
+  @apply absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0;
+  transform: translateX(-100%);
+  transition: all 0.6s ease-out;
+}
+
+.mq-btn-primary:hover::before {
+  @apply opacity-20;
+  transform: translateX(100%);
+}
+
+/* État de chargement pour les boutons de soumission */
+.mq-btn-primary.loading {
+  @apply cursor-wait;
+}
+
+.mq-btn-primary.loading::after {
+  content: '';
+  @apply absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-600;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Bouton Secondaire */
+.mq-btn-secondary {
+  @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium
+         text-slate-700 bg-white border border-slate-300
+         rounded-lg shadow-mq-sm hover:shadow-mq-md
+         transition-all duration-250 ease-out
+         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+         hover:bg-slate-50 hover:border-slate-400
+         active:scale-95
+         disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+/* Bouton Outline */
+.mq-btn-outline {
+  @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium
+         text-blue-600 bg-transparent border-2 border-blue-500
+         rounded-lg transition-all duration-250 ease-out
+         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+         hover:bg-blue-50 hover:text-blue-700
+         active:scale-95
+         disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+/* Bouton Ghost */
+.mq-btn-ghost {
+  @apply inline-flex items-center justify-center px-4 py-2 text-base font-medium
+         text-slate-600 bg-transparent border border-transparent
+         rounded-lg transition-all duration-250 ease-out
+         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+         hover:bg-slate-100 hover:text-slate-700;
+  @apply active:scale-95;
+}
+
+/* Tailles de boutons */
+.mq-btn-sm {
+  @apply px-4 py-2 text-sm;
+}
+
+.mq-btn-lg {
+  @apply px-8 py-4 text-lg;
+}
+
+.mq-btn-xl {
+  @apply px-10 py-5 text-xl;
+}
+
+
+
+/* === CARTES === */
+
+/* Carte de base */
+.mq-card {
+  @apply bg-white rounded-xl border border-slate-200;
+  @apply shadow-mq-sm hover:shadow-mq-md;
+  @apply transition-all duration-250 ease-out;
+  @apply overflow-hidden;
+}
+
+/* Carte interactive */
+.mq-card-interactive {
+  @apply mq-card cursor-pointer;
+  @apply hover:border-orange-200 hover:-translate-y-1;
+  @apply focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2;
+}
+
+/* Carte d'évaluation */
+.mq-card-evaluation {
+  @apply mq-card p-6;
+  @apply border-l-4 border-l-orange-500;
+  @apply bg-gradient-to-r from-orange-50 to-white;
+}
+
+/* Carte de commentaire */
+.mq-card-comment {
+  @apply mq-card p-5;
+  @apply bg-slate-50 border-slate-200;
+}
+
+/* En-tête de carte */
+.mq-card-header {
+  @apply px-6 py-4 border-b border-slate-200;
+  @apply bg-slate-50;
+}
+
+.mq-card-title {
+  @apply text-lg font-semibold text-slate-900;
+  @apply mb-1;
+}
+
+.mq-card-subtitle {
+  @apply text-sm text-slate-600;
+}
+
+/* Corps de carte */
+.mq-card-body {
+  @apply px-6 py-4;
+}
+
+/* Pied de carte */
+.mq-card-footer {
+  @apply px-6 py-4 border-t border-slate-200;
+  @apply bg-slate-50 flex items-center justify-between;
+}
+
+/* === FORMULAIRES === */
+
+/* Groupe de champ */
+.mq-form-group {
+  @apply mb-6;
+}
+
+/* Label */
+.mq-label {
+  @apply block text-sm font-medium text-slate-700 mb-2;
+}
+
+.mq-label-required::after {
+  content: " *";
+  @apply text-red-500;
+}
+
+/* Input de base */
+.mq-input {
+  @apply w-full px-4 py-3 text-base;
+  @apply bg-white border border-slate-300 rounded-lg;
+  @apply placeholder-slate-400;
+  @apply transition-all duration-250 ease-out;
+  @apply focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500;
+  @apply hover:border-slate-400;
+  @apply disabled:bg-slate-100 disabled:cursor-not-allowed;
+}
+
+/* Input avec erreur */
+.mq-input-error {
+  @apply border-red-500 focus:ring-red-500 focus:border-red-500;
+}
+
+/* Input avec succès */
+.mq-input-success {
+  @apply border-green-500 focus:ring-green-500 focus:border-green-500;
+}
+
+/* Textarea */
+.mq-textarea {
+  @apply mq-input resize-none;
+  @apply min-h-[120px];
+}
+
+/* Select */
+.mq-select {
+  @apply mq-input appearance-none;
+  @apply pr-10;
+}
+
+.mq-select-wrapper {
+  @apply relative;
+}
+
+.mq-select-wrapper::after {
+  content: '▼';
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+  pointer-events: none;
+  font-size: 12px;
+}
+
+/* Messages d'aide et d'erreur */
+.mq-help-text {
+  @apply mt-2 text-sm text-slate-600;
+}
+
+.mq-error-text {
+  @apply mt-2 text-sm text-red-600;
+  @apply flex items-center gap-1;
+}
+
+.mq-success-text {
+  @apply mt-2 text-sm text-green-600;
+  @apply flex items-center gap-1;
+}
+
+/* === ÉVALUATIONS PAR ÉTOILES === */
+.mq-rating {
+  @apply flex items-center gap-1;
+}
+
+.mq-star {
+  @apply w-6 h-6 cursor-pointer transition-colors duration-150;
+  @apply text-slate-300 hover:text-orange-400;
+}
+
+.mq-star.active {
+  @apply text-orange-500;
+}
+
+.mq-star.hover {
+  @apply text-orange-400;
+}
+
+/* === BADGES ET TAGS === */
+.mq-badge {
+  @apply inline-flex items-center px-3 py-1 text-xs font-medium;
+  @apply rounded-full;
+}
+
+.mq-badge-primary {
+  @apply mq-badge bg-orange-100 text-orange-800;
+}
+
+.mq-badge-secondary {
+  @apply mq-badge bg-slate-100 text-slate-800;
+}
+
+.mq-badge-success {
+  @apply mq-badge bg-green-100 text-green-800;
+}
+
+.mq-badge-warning {
+  @apply mq-badge bg-yellow-100 text-yellow-800;
+}
+
+.mq-badge-error {
+  @apply mq-badge bg-red-100 text-red-800;
+}
+
+/* === INDICATEUR DE PROGRESSION === */
+.mq-progress {
+  @apply w-full bg-slate-200 rounded-full h-2;
+  @apply overflow-hidden;
+}
+
+.mq-progress-bar {
+  @apply h-full bg-gradient-to-r from-orange-500 to-orange-600;
+  @apply transition-all duration-500 ease-out;
+  @apply rounded-full;
+}
+
+/* Indicateur de progression avec étapes */
+.mq-stepper {
+  @apply flex items-center justify-between mb-8;
+}
+
+.mq-step {
+  @apply flex items-center;
+}
+
+.mq-step-number {
+  @apply w-8 h-8 rounded-full border-2 border-slate-300;
+  @apply flex items-center justify-center text-sm font-medium;
+  @apply bg-white text-slate-500;
+  @apply transition-all duration-250 ease-out;
+}
+
+.mq-step.active .mq-step-number {
+  @apply border-orange-500 bg-orange-500 text-white;
+}
+
+.mq-step.completed .mq-step-number {
+  @apply border-green-500 bg-green-500 text-white;
+}
+
+.mq-step-label {
+  @apply ml-3 text-sm font-medium text-slate-600;
+}
+
+.mq-step.active .mq-step-label {
+  @apply text-orange-600;
+}
+
+.mq-step.completed .mq-step-label {
+  @apply text-green-600;
+}
+
+/* === NOTIFICATIONS/TOASTS === */
+.mq-toast {
+  @apply fixed top-4 right-4 z-50;
+  @apply max-w-sm w-full bg-white rounded-lg shadow-mq-lg;
+  @apply border border-slate-200 p-4;
+  @apply transform transition-all duration-300 ease-out;
+}
+
+.mq-toast-success {
+  @apply mq-toast border-l-4 border-l-green-500;
+}
+
+.mq-toast-error {
+  @apply mq-toast border-l-4 border-l-red-500;
+}
+
+.mq-toast-warning {
+  @apply mq-toast border-l-4 border-l-yellow-500;
+}
+
+.mq-toast-info {
+  @apply mq-toast border-l-4 border-l-blue-500;
+}
+
+/* === UTILITAIRES === */
+.mq-container {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.mq-section {
+  @apply py-12 lg:py-16;
+}
+
+.mq-divider {
+  @apply border-t border-slate-200 my-8;
+}
+
+/* Animations */
+@keyframes mq-fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes mq-slide-in {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.mq-animate-fade-in {
+  animation: mq-fade-in 0.3s ease-out;
+}
+
+.mq-animate-slide-in {
+  animation: mq-slide-in 0.3s ease-out;
+}

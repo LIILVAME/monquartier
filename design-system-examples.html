@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MonQuartier - Design System Examples</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="design-system.css">
+    <link rel="stylesheet" href="components.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-mq-bg font-mq">
+    <div class="mq-container py-8">
+        <header class="mb-12">
+            <h1 class="text-4xl font-bold text-mq-text-primary mb-4">
+                🏘️ MonQuartier Design System
+            </h1>
+            <p class="text-lg text-mq-text-secondary">
+                Exemples d'utilisation des composants pour une expérience chaleureuse et accessible
+            </p>
+        </header>
+
+        <!-- === SECTION BOUTONS === -->
+        <section class="mq-section">
+            <h2 class="text-2xl font-semibold text-mq-text-primary mb-6">🔘 Boutons</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <!-- Boutons principaux -->
+                <div class="mq-card p-6">
+                    <h3 class="font-medium text-mq-text-primary mb-4">Boutons Principaux</h3>
+                    <div class="space-y-3">
+                        <button class="mq-btn-primary w-full">
+                            Évaluer mon quartier
+                        </button>
+                        <button class="mq-btn-primary mq-btn-icon w-full">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            Voir la carte
+                        </button>
+                        <button class="mq-btn-primary mq-btn-sm">
+                            Petit bouton
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Boutons secondaires -->
+                <div class="mq-card p-6">
+                    <h3 class="font-medium text-mq-text-primary mb-4">Boutons Secondaires</h3>
+                    <div class="space-y-3">
+                        <button class="mq-btn-secondary w-full">
+                            Voir les commentaires
+                        </button>
+                        <button class="mq-btn-outline w-full">
+                            Filtrer par commune
+                        </button>
+                        <button class="mq-btn-ghost w-full">
+                            Annuler
+                        </button>
+                    </div>
+                </div>
+
+                <!-- États des boutons -->
+                <div class="mq-card p-6">
+                    <h3 class="font-medium text-mq-text-primary mb-4">États</h3>
+                    <div class="space-y-3">
+                        <button class="mq-btn-primary w-full" disabled>
+                            Bouton désactivé
+                        </button>
+                        <button class="mq-btn-secondary w-full hover:shadow-mq-lg">
+                            Survolez-moi
+                        </button>
+                        <button class="mq-btn-primary mq-btn-lg w-full">
+                            Grand bouton
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- === SECTION CARTES === -->
+        <section class="mq-section">
+            <h2 class="text-2xl font-semibold text-mq-text-primary mb-6">🃏 Cartes</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <!-- Carte d'évaluation -->
+                <div class="mq-card-evaluation">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-semibold text-mq-text-primary">Cocody</h3>
+                        <span class="mq-badge-primary">4.2/5</span>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-mq-text-secondary">Sécurité</span>
+                            <div class="mq-rating">
+                                <span class="mq-star active">★</span>
+                                <span class="mq-star active">★</span>
+                                <span class="mq-star active">★</span>
+                                <span class="mq-star active">★</span>
+                                <span class="mq-star">★</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-mq-text-secondary">Propreté</span>
+                            <div class="mq-rating">
+                                <span class="mq-star active">★</span>
+                                <span class="mq-star active">★</span>
+                                <span class="mq-star active">★</span>
+                                <span class="mq-star active">★</span>
+                                <span class="mq-star active">★</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-mq-text-secondary">Transport</span>
+                            <div class="mq-rating">
+                                <span class="mq-star active">★</span>
+                                <span class="mq-star active">★</span>
+                                <span class="mq-star active">★</span>
+                                <span class="mq-star">★</span>
+                                <span class="mq-star">★</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="mq-btn-outline mq-btn-sm mt-4 w-full">
+                        Voir les détails
+                    </button>
+                </div>
+
+                <!-- Carte de commentaire -->
+                <div class="mq-card-comment">
+                    <div class="flex items-start gap-3 mb-3">
+                        <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                            <span class="text-orange-600 font-medium">AM</span>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-medium text-mq-text-primary">Aminata M.</h4>
+                            <p class="text-xs text-mq-text-muted">Il y a 2 heures</p>
+                        </div>
+                        <div class="mq-rating">
+                            <span class="mq-star active">★</span>
+                            <span class="mq-star active">★</span>
+                            <span class="mq-star active">★</span>
+                            <span class="mq-star active">★</span>
+                            <span class="mq-star">★</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-mq-text-secondary">
+                        "Très bon quartier, calme et sécurisé. Les transports en commun sont facilement accessibles. Je recommande !"
+                    </p>
+                    <div class="flex items-center gap-2 mt-3">
+                        <span class="mq-badge-secondary">Cocody</span>
+                        <span class="mq-badge-success">Vérifié</span>
+                    </div>
+                </div>
+
+                <!-- Carte interactive -->
+                <div class="mq-card-interactive p-6" tabindex="0">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-mq-text-primary mb-2">
+                            Ajouter une évaluation
+                        </h3>
+                        <p class="text-sm text-mq-text-secondary">
+                            Partagez votre expérience de votre quartier
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- === SECTION FORMULAIRES === -->
+        <section class="mq-section">
+            <h2 class="text-2xl font-semibold text-mq-text-primary mb-6">📝 Formulaires</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Formulaire d'évaluation -->
+                <div class="mq-card p-6">
+                    <div class="mq-card-header -m-6 mb-6">
+                        <h3 class="mq-card-title">Évaluez votre quartier</h3>
+                        <p class="mq-card-subtitle">Aidez la communauté avec votre avis</p>
+                    </div>
+
+                    <form class="space-y-6">
+                        <div class="mq-form-group">
+                            <label class="mq-label mq-label-required" for="commune">
+                                Commune
+                            </label>
+                            <select id="commune" class="mq-select">
+                                <option value="">Sélectionnez votre commune</option>
+                                <option value="cocody">Cocody</option>
+                                <option value="plateau">Plateau</option>
+                                <option value="marcory">Marcory</option>
+                                <option value="treichville">Treichville</option>
+                            </select>
+                        </div>
+
+                        <div class="mq-form-group">
+                            <label class="mq-label" for="quartier">
+                                Quartier spécifique
+                            </label>
+                            <input 
+                                type="text" 
+                                id="quartier" 
+                                class="mq-input" 
+                                placeholder="Ex: Riviera, Zone 4..."
+                            >
+                            <p class="mq-help-text">
+                                Précisez le quartier pour une évaluation plus précise
+                            </p>
+                        </div>
+
+                        <div class="mq-form-group">
+                            <label class="mq-label mq-label-required">
+                                Sécurité
+                            </label>
+                            <div class="mq-rating justify-center py-2">
+                                <span class="mq-star" data-rating="1">★</span>
+                                <span class="mq-star" data-rating="2">★</span>
+                                <span class="mq-star" data-rating="3">★</span>
+                                <span class="mq-star" data-rating="4">★</span>
+                                <span class="mq-star" data-rating="5">★</span>
+                            </div>
+                        </div>
+
+                        <div class="mq-form-group">
+                            <label class="mq-label" for="commentaire">
+                                Votre commentaire
+                            </label>
+                            <textarea 
+                                id="commentaire" 
+                                class="mq-textarea" 
+                                placeholder="Partagez votre expérience du quartier..."
+                            ></textarea>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <button type="submit" class="mq-btn-primary flex-1">
+                                Publier l'évaluation
+                            </button>
+                            <button type="button" class="mq-btn-secondary">
+                                Aperçu
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Formulaire avec validation -->
+                <div class="mq-card p-6">
+                    <div class="mq-card-header -m-6 mb-6">
+                        <h3 class="mq-card-title">Exemple avec validation</h3>
+                        <p class="mq-card-subtitle">États d'erreur et de succès</p>
+                    </div>
+
+                    <form class="space-y-6">
+                        <div class="mq-form-group">
+                            <label class="mq-label mq-label-required" for="email">
+                                Email
+                            </label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                class="mq-input mq-input-error" 
+                                value="email-invalide"
+                            >
+                            <p class="mq-error-text">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                </svg>
+                                Veuillez saisir une adresse email valide
+                            </p>
+                        </div>
+
+                        <div class="mq-form-group">
+                            <label class="mq-label" for="nom">
+                                Nom complet
+                            </label>
+                            <input 
+                                type="text" 
+                                id="nom" 
+                                class="mq-input mq-input-success" 
+                                value="Aminata Traoré"
+                            >
+                            <p class="mq-success-text">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                Parfait !
+                            </p>
+                        </div>
+
+                        <div class="mq-form-group">
+                            <label class="mq-label" for="telephone">
+                                Téléphone
+                            </label>
+                            <input 
+                                type="tel" 
+                                id="telephone" 
+                                class="mq-input" 
+                                placeholder="+225 XX XX XX XX XX"
+                            >
+                            <p class="mq-help-text">
+                                Format: +225 suivi de votre numéro
+                            </p>
+                        </div>
+
+                        <button type="submit" class="mq-btn-primary w-full" disabled>
+                            Corriger les erreurs pour continuer
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- === SECTION INDICATEURS === -->
+        <section class="mq-section">
+            <h2 class="text-2xl font-semibold text-mq-text-primary mb-6">📊 Indicateurs et Feedback</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Indicateur de progression -->
+                <div class="mq-card p-6">
+                    <h3 class="font-medium text-mq-text-primary mb-4">Progression du formulaire</h3>
+                    
+                    <div class="mq-stepper mb-6">
+                        <div class="mq-step completed">
+                            <div class="mq-step-number">✓</div>
+                            <span class="mq-step-label">Commune</span>
+                        </div>
+                        <div class="mq-step active">
+                            <div class="mq-step-number">2</div>
+                            <span class="mq-step-label">Évaluation</span>
+                        </div>
+                        <div class="mq-step">
+                            <div class="mq-step-number">3</div>
+                            <span class="mq-step-label">Commentaire</span>
+                        </div>
+                    </div>
+
+                    <div class="mq-progress mb-2">
+                        <div class="mq-progress-bar" style="width: 66%"></div>
+                    </div>
+                    <p class="text-sm text-mq-text-secondary text-center">
+                        Étape 2 sur 3 - Continuez, vous y êtes presque ! 🎉
+                    </p>
+                </div>
+
+                <!-- Notifications -->
+                <div class="mq-card p-6">
+                    <h3 class="font-medium text-mq-text-primary mb-4">Notifications</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="mq-toast-success relative">
+                            <div class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-green-600 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <div>
+                                    <h4 class="font-medium text-green-800">Évaluation publiée !</h4>
+                                    <p class="text-sm text-green-700">Merci pour votre contribution à la communauté 🙏</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mq-toast-warning relative">
+                            <div class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-yellow-600 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                </svg>
+                                <div>
+                                    <h4 class="font-medium text-yellow-800">Attention</h4>
+                                    <p class="text-sm text-yellow-700">Certains champs sont obligatoires</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- === SECTION BADGES === -->
+        <section class="mq-section">
+            <h2 class="text-2xl font-semibold text-mq-text-primary mb-6">🏷️ Badges et Tags</h2>
+            
+            <div class="mq-card p-6">
+                <div class="flex flex-wrap gap-3">
+                    <span class="mq-badge-primary">Populaire</span>
+                    <span class="mq-badge-success">Vérifié</span>
+                    <span class="mq-badge-warning">En attente</span>
+                    <span class="mq-badge-error">Signalé</span>
+                    <span class="mq-badge-secondary">Nouveau</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Exemple d'interaction pour les étoiles
+        document.querySelectorAll('.mq-rating .mq-star').forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = this.dataset.rating;
+                const stars = this.parentElement.querySelectorAll('.mq-star');
+                
+                stars.forEach((s, index) => {
+                    if (index < rating) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // Animation d'apparition
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.mq-card, .mq-card-evaluation, .mq-card-comment');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('mq-animate-fade-in');
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MonQuartier - Prototype Amélioré</title>
+    <link rel="stylesheet" href="prototype-styles.css">
+</head>
+<body>
+    <!-- HERO SECTION AMÉLIORÉE -->
+    <section class="hero-prototype">
+        <div class="container">
+            <!-- Preuve sociale immédiate -->
+            <div class="social-proof-badge">
+                <span class="badge-icon">✨</span>
+                <span class="badge-text"><strong>2,847</strong> avis partagés cette semaine</span>
+            </div>
+            
+            <h1 class="hero-title">
+                Découvrez votre quartier à travers 
+                <span class="highlight">l'expérience de vos voisins</span>
+            </h1>
+            
+            <p class="hero-subtitle">
+                En 2 minutes, partagez votre avis ou consultez celui de 15,000+ résidents. 
+                <strong>Gratuit, anonyme, utile.</strong>
+            </p>
+            
+            <!-- CTA PRINCIPAL AMÉLIORÉ -->
+            <div class="cta-container">
+                <button class="cta-primary" onclick="startEvaluation()">
+                    <span class="cta-icon">🏠</span>
+                    <span class="cta-text">Évaluer mon quartier</span>
+                    <span class="cta-time">2 min</span>
+                </button>
+                
+                <button class="cta-secondary" onclick="showAvis()">
+                    <span class="cta-icon">👀</span>
+                    <span class="cta-text">Voir les avis</span>
+                </button>
+            </div>
+            
+            <!-- Indicateurs de confiance -->
+            <div class="trust-indicators">
+                <div class="trust-item">
+                    <span class="trust-icon">🔒</span>
+                    <span>100% anonyme</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">⚡</span>
+                    <span>Résultats instantanés</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">🎯</span>
+                    <span>Données vérifiées</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORMULAIRE SIMPLIFIÉ EN 2 ÉTAPES -->
+    <section class="form-prototype" id="evaluation-form" style="display: none;">
+        <div class="container">
+            <div class="form-header">
+                <h2>Partagez votre expérience</h2>
+                <div class="progress-bar">
+                    <div class="progress-step active" data-step="1">
+                        <span class="step-number">1</span>
+                        <span class="step-label">Localisation</span>
+                    </div>
+                    <div class="progress-step" data-step="2">
+                        <span class="step-number">2</span>
+                        <span class="step-label">Évaluation</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ÉTAPE 1: Localisation -->
+            <div class="form-step" id="step-1">
+                <div class="step-content">
+                    <h3>Où habitez-vous ?</h3>
+                    <div class="input-group">
+                        <label for="commune">Commune</label>
+                        <select id="commune" required>
+                            <option value="">Sélectionnez votre commune</option>
+                            <option value="paris">Paris</option>
+                            <option value="lyon">Lyon</option>
+                            <option value="marseille">Marseille</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="quartier">Quartier (optionnel)</label>
+                        <input type="text" id="quartier" placeholder="Ex: Belleville, Croix-Rousse...">
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn-back" onclick="goToHome()">← Retour à l'accueil</button>
+                        <button class="btn-next" onclick="nextStep()">
+                            Continuer
+                            <span class="btn-arrow">→</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ÉTAPE 2: Évaluation simplifiée -->
+            <div class="form-step" id="step-2" style="display: none;">
+                <div class="step-content">
+                    <h3>Comment évaluez-vous votre quartier ?</h3>
+                    
+                    <div class="rating-grid">
+                        <div class="rating-item">
+                            <label>Sécurité</label>
+                            <div class="rating-buttons">
+                                <button class="rating-btn" data-value="1">😟</button>
+                                <button class="rating-btn" data-value="2">😐</button>
+                                <button class="rating-btn" data-value="3">😊</button>
+                                <button class="rating-btn" data-value="4">😍</button>
+                            </div>
+                        </div>
+                        
+                        <div class="rating-item">
+                            <label>Propreté</label>
+                            <div class="rating-buttons">
+                                <button class="rating-btn" data-value="1">😟</button>
+                                <button class="rating-btn" data-value="2">😐</button>
+                                <button class="rating-btn" data-value="3">😊</button>
+                                <button class="rating-btn" data-value="4">😍</button>
+                            </div>
+                        </div>
+                        
+                        <div class="rating-item">
+                            <label>Transports</label>
+                            <div class="rating-buttons">
+                                <button class="rating-btn" data-value="1">😟</button>
+                                <button class="rating-btn" data-value="2">😐</button>
+                                <button class="rating-btn" data-value="3">😊</button>
+                                <button class="rating-btn" data-value="4">😍</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button class="btn-back" onclick="prevStep()">← Retour</button>
+                        <button class="btn-submit" onclick="submitForm()">
+                            Publier mon avis
+                            <span class="btn-icon">✨</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION AVIS AVEC PREUVE SOCIALE -->
+    <section class="avis-prototype" id="avis-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Ce que disent vos voisins</h2>
+                <div class="stats-bar">
+                    <div class="stat-item">
+                        <span class="stat-number">15,247</span>
+                        <span class="stat-label">avis partagés</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">4.2/5</span>
+                        <span class="stat-label">satisfaction moyenne</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">89%</span>
+                        <span class="stat-label">recommandent</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="avis-grid">
+                <div class="avis-card">
+                    <div class="avis-header">
+                        <div class="avis-location">📍 Belleville, Paris</div>
+                        <div class="avis-time">Il y a 2h</div>
+                    </div>
+                    <div class="avis-ratings">
+                        <span class="rating-badge">Sécurité 😊</span>
+                        <span class="rating-badge">Propreté 😐</span>
+                        <span class="rating-badge">Transports 😍</span>
+                    </div>
+                    <p class="avis-comment">"Quartier vivant avec de bons transports. Quelques efforts à faire sur la propreté."</p>
+                </div>
+                
+                <div class="avis-card">
+                    <div class="avis-header">
+                        <div class="avis-location">📍 Croix-Rousse, Lyon</div>
+                        <div class="avis-time">Il y a 1j</div>
+                    </div>
+                    <div class="avis-ratings">
+                        <span class="rating-badge">Sécurité 😍</span>
+                        <span class="rating-badge">Propreté 😊</span>
+                        <span class="rating-badge">Transports 😊</span>
+                    </div>
+                    <p class="avis-comment">"Parfait pour les familles, très sûr et bien desservi."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONFIRMATION MODAL -->
+    <div class="modal" id="confirmation-modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-icon">🎉</span>
+                <h3>Merci pour votre contribution !</h3>
+            </div>
+            <div class="modal-body">
+                <p>Votre avis a été publié et aidera d'autres résidents.</p>
+                <div class="modal-stats">
+                    <div class="modal-stat">
+                        <span class="stat-number">+1</span>
+                        <span class="stat-label">Avis ajouté</span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="stat-number">15,248</span>
+                        <span class="stat-label">Total communauté</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-modal" onclick="goToAvisSection()">Découvrir d'autres avis</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="prototype-script.js"></script>
+</body>
+</html>

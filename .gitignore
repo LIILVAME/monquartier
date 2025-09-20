@@ -1,0 +1,53 @@
+# Fichiers système
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Dossiers de dépendances
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Fichiers de build
+dist/
+build/
+.cache/
+
+# Fichiers d'environnement
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+logs
+*.log
+
+# Fichiers temporaires
+*.tmp
+*.temp
+.temp/
+
+# Fichiers IDE
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# Fichiers de sauvegarde
+*~
+*.bak
+*.backup
+
+# Fichiers de test
+coverage/
+.nyc_output/
+
+# Fichiers spécifiques au projet
+# Ajoutez ici les fichiers spécifiques à votre projet que vous ne voulez pas versionner

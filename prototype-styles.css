@@ -1,0 +1,663 @@
+/* PROTOTYPE STYLES - MonQuartier Amélioré */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #2C5AA0;
+    background: linear-gradient(135deg, #4A90E2 0%, #6BA3F5 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(254, 254, 254, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.section {
+    margin-bottom: 40px;
+    padding: 30px;
+    background: #FEFEFE;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.section h2 {
+    color: #2C5AA0;
+    margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.section p {
+    color: #4A90E2;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.micro-interaction {
+    background: rgba(254, 254, 254, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 15px;
+    margin: 10px 0;
+    transition: all 0.3s ease;
+}
+
+.micro-interaction:hover {
+    background: rgba(254, 254, 254, 0.1);
+    transform: translateY(-2px);
+    border: 2px solid rgba(254, 254, 254, 0.3);
+}
+
+/* HERO SECTION AMÉLIORÉE */
+.hero-prototype {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: white;
+    position: relative;
+}
+
+.social-proof-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(254, 254, 254, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 12px 20px;
+    border-radius: 50px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(254, 254, 254, 0.2);
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.badge-icon {
+    font-size: 16px;
+}
+
+.badge-text {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.hero-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 20px;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.highlight {
+    background: linear-gradient(45deg, #ffd89b, #19547b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 40px;
+    opacity: 0.9;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+/* CTA AMÉLIORÉ */
+.cta-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 40px;
+    animation: fadeInUp 0.8s ease-out 0.6s both;
+    flex-wrap: wrap;
+}
+
+.cta-primary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(45deg, #4A90E2, #2C5AA0);
+    color: white;
+    border: none;
+    padding: 18px 32px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(74, 144, 226, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(74, 144, 226, 0.4);
+}
+
+.cta-primary:active {
+    transform: translateY(0);
+}
+
+.cta-time {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.cta-secondary {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 16px 28px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.cta-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-1px);
+}
+
+/* INDICATEURS DE CONFIANCE */
+.trust-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    animation: fadeInUp 0.8s ease-out 0.8s both;
+    flex-wrap: wrap;
+}
+
+.trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.trust-icon {
+    font-size: 16px;
+}
+
+/* FORMULAIRE PROTOTYPE */
+.form-prototype {
+    background: white;
+    min-height: 100vh;
+    padding: 60px 0;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.form-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #2d3748;
+}
+
+/* BARRE DE PROGRESSION */
+.progress-bar {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.progress-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0.5;
+    transition: all 0.3s ease;
+}
+
+.progress-step.active {
+    opacity: 1;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.progress-step.active .step-number {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+}
+
+.step-label {
+    font-weight: 500;
+    color: #4a5568;
+}
+
+/* ÉTAPES DU FORMULAIRE */
+.form-step {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.step-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #2d3748;
+}
+
+.input-group {
+    margin-bottom: 25px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #4a5568;
+}
+
+.input-group select,
+.input-group input {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.input-group select:focus,
+.input-group input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* BOUTONS */
+.btn-next,
+.btn-submit {
+    width: 100%;
+    background: linear-gradient(45deg, #4A90E2, #2C5AA0);
+    color: white;
+    border: none;
+    padding: 18px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.btn-next:hover,
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(74, 144, 226, 0.3);
+}
+
+.btn-back {
+    background: transparent;
+    color: #4A90E2;
+    border: 2px solid #4A90E2;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+    background: #4A90E2;
+    color: white;
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.form-actions .btn-submit {
+    flex: 1;
+    margin-top: 0;
+}
+
+/* SYSTÈME DE NOTATION */
+.rating-grid {
+    display: grid;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.rating-item {
+    text-align: center;
+}
+
+.rating-item label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #2d3748;
+}
+
+.rating-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.rating-btn {
+    width: 50px;
+    height: 50px;
+    border: 3px solid #E8F2FF;
+    border-radius: 50%;
+    background: #FEFEFE;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.rating-btn:hover {
+    border-color: #4A90E2;
+    transform: scale(1.1);
+}
+
+.rating-btn.selected {
+    border-color: #4A90E2;
+    background: #4A90E2;
+    color: white;
+}
+
+/* SECTION AVIS */
+.avis-prototype {
+    background: #f7fafc;
+    padding: 80px 0;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #2d3748;
+}
+
+.stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #667eea;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #718096;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.avis-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.avis-card {
+    background: #F8FAFC;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.avis-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.avis-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.avis-location {
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.avis-time {
+    font-size: 12px;
+    color: #718096;
+}
+
+.avis-ratings {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.rating-badge {
+    background: #edf2f7;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.avis-comment {
+    color: #4a5568;
+    font-style: italic;
+    line-height: 1.5;
+}
+
+/* MODAL DE CONFIRMATION */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+.modal-header {
+    margin-bottom: 20px;
+}
+
+.modal-icon {
+    font-size: 48px;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.modal-header h3 {
+    font-size: 1.5rem;
+    color: #2C5AA0;
+}
+
+.modal-body p {
+    color: #4A90E2;
+    margin-bottom: 25px;
+}
+
+.modal-stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 25px;
+}
+
+.modal-stat {
+    text-align: center;
+}
+
+.modal-stat .stat-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #4A90E2;
+}
+
+.modal-stat .stat-label {
+    font-size: 12px;
+    color: #718096;
+}
+
+.btn-modal {
+    background: linear-gradient(45deg, #4A90E2, #2C5AA0);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-modal:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+/* ANIMATIONS */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .cta-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .cta-primary,
+    .cta-secondary {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .trust-indicators {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .progress-bar {
+        gap: 20px;
+    }
+    
+    .rating-buttons {
+        gap: 10px;
+    }
+    
+    .rating-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+    
+    .stats-bar {
+        gap: 20px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .modal-stats {
+        gap: 20px;
+    }
+}

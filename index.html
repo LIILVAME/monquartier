@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MonQuartier - Évaluez votre quartier à Abidjan</title>
+    <meta name="description" content="Évaluez et partagez votre expérience de vie dans les quartiers d'Abidjan. Notez la sécurité, propreté, transports et plus encore.">
+    <!-- Design System CSS -->
+    <link rel="stylesheet" href="design-system.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav" role="navigation" aria-label="Navigation principale">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <h1 class="logo">MonQuartier</h1>
+                    <span class="tagline">Abidjan</span>
+                </div>
+                
+                <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                </button>
+                
+                <ul class="nav-menu" role="menubar">
+                    <li role="none"><a href="#accueil" role="menuitem">Accueil</a></li>
+                    <li role="none"><a href="#evaluer" role="menuitem">Évaluer</a></li>
+                    <li role="none"><a href="#carte" role="menuitem">Carte</a></li>
+                    <li role="none"><a href="#commentaires" role="menuitem">Commentaires</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <!-- Section Héro -->
+        <section id="accueil" class="hero-enhanced" aria-labelledby="hero-title">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 id="hero-title" class="hero-title-enhanced">
+                        Bonjour à vous ! 👋<br>
+                        <span class="hero-highlight">Découvrez votre quartier</span> à Abidjan
+                    </h1>
+                    <p class="hero-description-enhanced">
+                        Ensemble, partageons nos expériences pour faire d'Abidjan une ville où il fait bon vivre. 
+                        <strong>Votre avis compte</strong> et aide toute la communauté !
+                    </p>
+                    <div class="hero-cta-container">
+                        <a href="#evaluation" class="hero-cta-button" role="button" aria-label="Commencer à partager votre expérience de quartier">
+                            🌟 Partager mon expérience
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Section Filtres -->
+        <section id="filtres" class="filters-section-enhanced">
+            <div class="container">
+                <div class="filters-card">
+                    <div class="filters-header">
+                        <h3 class="filters-title-enhanced">
+                            <span class="filters-icon">🏘️</span>
+                            Explorez par commune
+                        </h3>
+                        <p class="filters-subtitle">Découvrez les avis de votre quartier ou explorez d'autres communes d'Abidjan</p>
+                    </div>
+                    <div class="filters-wrapper-enhanced">
+                        <div class="select-container">
+                            <label for="commune-filter" class="select-label">Choisissez une commune</label>
+                            <div class="select-wrapper">
+                                <select id="commune-filter" class="commune-select-enhanced" aria-label="Filtrer les avis par commune">
+                                    <option value="">🌍 Toutes les communes</option>
+                                    <option value="abobo">📍 Abobo</option>
+                                    <option value="adjame">📍 Adjamé</option>
+                                    <option value="attécoubé">📍 Attécoubé</option>
+                                    <option value="cocody">📍 Cocody</option>
+                                    <option value="koumassi">📍 Koumassi</option>
+                                    <option value="marcory">📍 Marcory</option>
+                                    <option value="plateau">📍 Plateau</option>
+                                    <option value="port-bouet">📍 Port-Bouët</option>
+                                    <option value="treichville">📍 Treichville</option>
+                                    <option value="yopougon">📍 Yopougon</option>
+                                </select>
+                                <div class="select-arrow">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                        <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Évaluation -->
+        <section id="evaluation" class="evaluation-section-enhanced">
+            <div class="container">
+                <div class="evaluation-card">
+                    <div class="evaluation-header">
+                        <h2 class="evaluation-title-enhanced">
+                            <span class="evaluation-icon">✨</span>
+                            Partagez votre expérience
+                        </h2>
+                        <p class="evaluation-description-enhanced">
+                            Votre avis précieux aide toute la communauté à mieux connaître Abidjan. 
+                            <strong>Merci de prendre ce temps pour nous !</strong>
+                        </p>
+                    </div>
+                
+                <!-- Indicateur de progression simple -->
+                <div class="mq-progress-indicator">
+                    <div class="mq-progress-step mq-progress-active" data-step="1">📍</div>
+                    <div class="mq-progress-step" data-step="2">⭐</div>
+                    <div class="mq-progress-step" data-step="3">💬</div>
+                </div>
+                
+                <form id="evaluation-form" class="evaluation-form" role="form" aria-labelledby="evaluation-title-enhanced">
+                    <!-- Étape 1: Localisation -->
+                    <div class="form-step active" data-step="1">
+                        <div class="form-group">
+                            <label for="commune" class="mq-label">🏙️ Dans quelle commune habitez-vous ?</label>
+                            <div class="mq-select-wrapper">
+                                <select id="commune" name="commune" class="mq-select" required>
+                                    <option value="">Choisissez votre commune</option>
+                                    <option value="abobo">Abobo</option>
+                                    <option value="adjame">Adjamé</option>
+                                    <option value="attécoubé">Attécoubé</option>
+                                    <option value="cocody">Cocody</option>
+                                    <option value="koumassi">Koumassi</option>
+                                    <option value="marcory">Marcory</option>
+                                    <option value="plateau">Plateau</option>
+                                    <option value="port-bouet">Port-Bouët</option>
+                                    <option value="treichville">Treichville</option>
+                                    <option value="yopougon">Yopougon</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="quartier" class="mq-label">🏠 Et votre quartier ?</label>
+                            <div class="mq-select-wrapper">
+                                <select id="quartier" name="quartier" class="mq-select" required>
+                                    <option value="">Choisissez votre quartier</option>
+                                    <option value="centre-ville">Centre-ville</option>
+                                    <option value="nord">Quartier Nord</option>
+                                    <option value="sud">Quartier Sud</option>
+                                    <option value="est">Quartier Est</option>
+                                    <option value="ouest">Quartier Ouest</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-next-enhanced">
+                            <span class="btn-text">Suivant</span>
+                            <span class="btn-arrow">→</span>
+                        </button>
+                    </div>
+
+                    <!-- Étape 2: Évaluation -->
+                    <div class="form-step" data-step="2">
+                        <div class="criteria-grid">
+                            <fieldset class="criterion">
+                                <legend class="criterion-title">
+                                    <span class="criterion-icon">🔒</span>
+                                    Sécurité
+                                </legend>
+                                <div class="rating-simple" role="radiogroup" aria-labelledby="securite-legend">
+                                    <label class="rating-option">
+                                        <input type="radio" name="securite" value="bon" required aria-describedby="securite-help">
+                                        <span class="rating-text">😊 Bon</span>
+                                    </label>
+                                    <label class="rating-option">
+                                        <input type="radio" name="securite" value="moyen" required aria-describedby="securite-help">
+                                        <span class="rating-text">😐 Moyen</span>
+                                    </label>
+                                    <label class="rating-option">
+                                        <input type="radio" name="securite" value="mauvais" required aria-describedby="securite-help">
+                                        <span class="rating-text">😞 Mauvais</span>
+                                    </label>
+                                </div>
+                                <div id="securite-help" class="sr-only">Évaluez le niveau de sécurité de votre quartier</div>
+                            </fieldset>
+
+                            <div class="criterion">
+                                <h3 class="criterion-title">
+                                    <span class="criterion-icon">🧹</span>
+                                    Propreté
+                                </h3>
+                                <div class="rating-simple">
+                                    <label class="rating-option">
+                                        <input type="radio" name="proprete" value="bon" required>
+                                        <span class="rating-text">😊 Bon</span>
+                                    </label>
+                                    <label class="rating-option">
+                                        <input type="radio" name="proprete" value="moyen" required>
+                                        <span class="rating-text">😐 Moyen</span>
+                                    </label>
+                                    <label class="rating-option">
+                                        <input type="radio" name="proprete" value="mauvais" required>
+                                        <span class="rating-text">😞 Mauvais</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="criterion">
+                                <h3 class="criterion-title">
+                                    <span class="criterion-icon">🚌</span>
+                                    Transports
+                                </h3>
+                                <div class="rating-simple">
+                                    <label class="rating-option">
+                                        <input type="radio" name="transports" value="bon" required>
+                                        <span class="rating-text">😊 Bon</span>
+                                    </label>
+                                    <label class="rating-option">
+                                        <input type="radio" name="transports" value="moyen" required>
+                                        <span class="rating-text">😐 Moyen</span>
+                                    </label>
+                                    <label class="rating-option">
+                                        <input type="radio" name="transports" value="mauvais" required>
+                                        <span class="rating-text">😞 Mauvais</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-navigation">
+                            <button type="button" class="mq-btn-secondary btn-prev">Précédent</button>
+                            <button type="button" class="mq-btn-primary btn-next">Suivant</button>
+                        </div>
+                    </div>
+
+                    <!-- Étape 3: Commentaire -->
+                    <div class="form-step" data-step="3">
+                        <div class="form-group">
+                            <label for="commentaire" class="mq-label">💬 Racontez-nous votre expérience (optionnel)</label>
+                            <textarea id="commentaire" name="commentaire" class="mq-textarea" rows="4" placeholder="Qu'est-ce qui rend votre quartier spécial ? Partagez vos petites histoires, vos bons plans ou vos suggestions..."></textarea>
+                        </div>
+                        <div class="form-navigation">
+                            <button type="button" class="mq-btn-secondary btn-prev">Précédent</button>
+                            <button type="submit" class="mq-btn-primary">
+                                ✨ Partager mon expérience
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Carte -->
+        <section id="carte" class="map-section" aria-labelledby="map-title">
+            <div class="container">
+                <h3 id="map-title" class="section-title">Carte des quartiers</h3>
+                <div id="map" class="map-container" role="img" aria-label="Carte interactive des quartiers d'Abidjan"></div>
+            </div>
+        </section>
+
+        <!-- Section Commentaires -->
+        <section id="commentaires" class="comments" aria-labelledby="comments-title">
+            <div class="container">
+                <h3 id="comments-title" class="section-title">Avis de la communauté</h3>
+                
+                <div class="comments-list" id="comments-list">
+                    <article class="comment">
+                        <div class="comment-header">
+                            <span class="comment-author">Utilisateur anonyme</span>
+                            <span class="comment-location">Cocody</span>
+                            <time class="comment-date" datetime="2024-01-15">15 janvier 2024</time>
+                        </div>
+                        <p class="comment-text">Quartier très agréable avec de bons transports en commun. La sécurité pourrait être améliorée le soir.</p>
+                        <div class="comment-ratings">
+                            <span class="rating-badge">🛡️ Moyen</span>
+                            <span class="rating-badge">🧹 Bon</span>
+                            <span class="rating-badge">🚌 Bon</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 MonQuartier Abidjan. Tous droits réservés.</p>
+            <p>Contribuez à améliorer la qualité de vie dans votre quartier.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Modal d'onboarding -->
+    <div id="onboardingModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-slides">
+                <!-- Slide 1 -->
+                <div class="modal-slide active" data-slide="1">
+                    <div class="slide-icon">🏠</div>
+                    <h3>Bienvenue sur MonQuartier !</h3>
+                    <p>Découvrez et partagez la vraie vie des quartiers d'Abidjan avec vos voisins.</p>
+                </div>
+                
+                <!-- Slide 2 -->
+                <div class="modal-slide" data-slide="2">
+                    <div class="slide-icon">👥</div>
+                    <h3>Une communauté qui s'entraide</h3>
+                    <p>Vos avis aident les autres habitants à mieux choisir leur quartier et à s'y sentir chez eux.</p>
+                </div>
+                
+                <!-- Slide 3 -->
+                <div class="modal-slide" data-slide="3">
+                    <div class="slide-icon">⭐</div>
+                    <h3>Votre voix compte !</h3>
+                    <p>En 2 minutes, partagez votre expérience sur la sécurité, la propreté et les transports de votre quartier.</p>
+                </div>
+            </div>
+            
+            <div class="modal-navigation">
+                <div class="slide-indicators">
+                    <span class="indicator active" data-slide="1"></span>
+                    <span class="indicator" data-slide="2"></span>
+                    <span class="indicator" data-slide="3"></span>
+                </div>
+                
+                <div class="modal-buttons">
+                    <button class="modal-btn-skip">Passer</button>
+                    <button class="modal-btn-next">Suivant</button>
+                    <button class="modal-btn-start" style="display: none;">🚀 C'est parti !</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
