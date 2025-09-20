@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initRatingSystem();
     // initMap(); // Supprimé - sera chargé à la demande
     initFilters();
+    initFilterShortcuts();
     initComments();
     initFormValidation();
     initSmoothScrolling();
@@ -149,13 +150,61 @@ function getRatingColor(rating) {
 // Système de filtrage
 function initFilters() {
     const communeFilter = document.getElementById('commune-filter');
-    
+
     if (communeFilter) {
         communeFilter.addEventListener('change', function() {
             const selectedCommune = this.value;
             filterContent(selectedCommune);
         });
     }
+}
+
+function initFilterShortcuts() {
+    const communeFilter = document.getElementById('commune-filter');
+    const filterChips = document.querySelectorAll('.filter-chip');
+
+    if (!communeFilter || filterChips.length === 0) {
+        return;
+    }
+
+    filterChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            const value = chip.getAttribute('data-commune-shortcut') || '';
+            communeFilter.value = value;
+            communeFilter.dispatchEvent(new Event('change', { bubbles: true }));
+
+            filterChips.forEach(btn => {
+                if (btn === chip) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        });
+    });
+
+    communeFilter.addEventListener('change', () => {
+        const currentValue = communeFilter.value;
+        let activeChip = null;
+
+        filterChips.forEach(chip => {
+            const value = chip.getAttribute('data-commune-shortcut') || '';
+            if (value === currentValue) {
+                chip.classList.add('active');
+                activeChip = chip;
+            } else {
+                chip.classList.remove('active');
+            }
+        });
+
+        if (!activeChip) {
+            filterChips.forEach(chip => {
+                if ((chip.getAttribute('data-commune-shortcut') || '') === '') {
+                    chip.classList.add('active');
+                }
+            });
+        }
+    });
 }
 
 function filterContent(commune) {
