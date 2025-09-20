@@ -50,7 +50,7 @@
                         <span class="hero-highlight">Découvrez votre quartier</span> à Abidjan
                     </h1>
                     <p class="hero-description-enhanced">
-                        Ensemble, partageons nos expériences pour faire d'Abidjan une ville où il fait bon vivre. 
+                        Ensemble, partageons nos expériences pour faire d'Abidjan une ville où il fait bon vivre.
                         <strong>Votre avis compte</strong> et aide toute la communauté !
                     </p>
                     <div class="hero-cta-container">
@@ -58,6 +58,37 @@
                             🌟 Partager mon expérience
                         </a>
                     </div>
+                    <div class="hero-highlights" role="list" aria-label="Statistiques clés de la communauté">
+                        <div class="hero-highlight-card" role="listitem">
+                            <div class="hero-highlight-icon" aria-hidden="true">📈</div>
+                            <p class="hero-highlight-title">1 800+ avis authentiques</p>
+                            <p class="hero-highlight-text">Des retours vérifiés et modérés chaque semaine.</p>
+                        </div>
+                        <div class="hero-highlight-card" role="listitem">
+                            <div class="hero-highlight-icon" aria-hidden="true">🗺️</div>
+                            <p class="hero-highlight-title">10 communes connectées</p>
+                            <p class="hero-highlight-text">Explorez rapidement les quartiers du District d'Abidjan.</p>
+                        </div>
+                        <div class="hero-highlight-card" role="listitem">
+                            <div class="hero-highlight-icon" aria-hidden="true">🤝</div>
+                            <p class="hero-highlight-title">Communauté bienveillante</p>
+                            <p class="hero-highlight-text">Des voisins engagés pour une ville plus agréable.</p>
+                        </div>
+                    </div>
+                    <ul class="hero-trust-badges" aria-label="Engagements de MonQuartier">
+                        <li class="hero-badge">
+                            <span aria-hidden="true">🔒</span>
+                            Données protégées
+                        </li>
+                        <li class="hero-badge">
+                            <span aria-hidden="true">⚖️</span>
+                            Modération impartiale
+                        </li>
+                        <li class="hero-badge">
+                            <span aria-hidden="true">♿</span>
+                            Accessible à tous
+                        </li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -98,6 +129,23 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="filters-actions" role="group" aria-label="Filtres rapides par commune">
+                            <button type="button" class="filter-chip active" data-commune-shortcut="">
+                                🌍 Toutes
+                            </button>
+                            <button type="button" class="filter-chip" data-commune-shortcut="cocody">
+                                🌿 Cocody
+                            </button>
+                            <button type="button" class="filter-chip" data-commune-shortcut="plateau">
+                                🏙️ Plateau
+                            </button>
+                            <button type="button" class="filter-chip" data-commune-shortcut="yopougon">
+                                🎶 Yopougon
+                            </button>
+                            <button type="button" class="filter-chip" data-commune-shortcut="port-bouet">
+                                🌊 Port-Bouët
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -113,19 +161,20 @@
                             Partagez votre expérience
                         </h2>
                         <p class="evaluation-description-enhanced">
-                            Votre avis précieux aide toute la communauté à mieux connaître Abidjan. 
+                            Votre avis précieux aide toute la communauté à mieux connaître Abidjan.
                             <strong>Merci de prendre ce temps pour nous !</strong>
                         </p>
                     </div>
-                
+
                 <!-- Indicateur de progression simple -->
-                <div class="mq-progress-indicator">
-                    <div class="mq-progress-step mq-progress-active" data-step="1">📍</div>
-                    <div class="mq-progress-step" data-step="2">⭐</div>
-                    <div class="mq-progress-step" data-step="3">💬</div>
+                <div class="progress-indicator" role="group" aria-label="Progression du formulaire">
+                    <div class="progress-step active" data-step="1" aria-current="step">📍</div>
+                    <div class="progress-step" data-step="2">⭐</div>
+                    <div class="progress-step" data-step="3">💬</div>
                 </div>
-                
-                <form id="evaluation-form" class="evaluation-form" role="form" aria-labelledby="evaluation-title-enhanced">
+
+                <div class="evaluation-body">
+                    <form id="evaluation-form" class="evaluation-form" role="form" aria-labelledby="evaluation-title-enhanced">
                     <!-- Étape 1: Localisation -->
                     <div class="form-step active" data-step="1">
                         <div class="form-group">
@@ -159,7 +208,7 @@
                                 </select>
                             </div>
                         </div>
-                        <button type="button" class="btn-next-enhanced">
+                        <button type="button" class="btn-next-enhanced btn-next">
                             <span class="btn-text">Suivant</span>
                             <span class="btn-arrow">→</span>
                         </button>
@@ -251,7 +300,36 @@
                             </button>
                         </div>
                     </div>
-                </form>
+                    </form>
+                    <aside class="evaluation-tips" aria-label="Conseils pour rédiger votre avis">
+                        <h3 class="evaluation-tips-title">Conseils pour un avis utile</h3>
+                        <ul class="tips-list">
+                            <li class="tips-item">
+                                <span class="tips-icon" aria-hidden="true">🕒</span>
+                                Mentionnez les moments clés de la journée (matin, soirée, week-end).
+                            </li>
+                            <li class="tips-item">
+                                <span class="tips-icon" aria-hidden="true">🚶</span>
+                                Parlez des services du quotidien : transports, écoles, commerces de proximité.
+                            </li>
+                            <li class="tips-item">
+                                <span class="tips-icon" aria-hidden="true">💡</span>
+                                Ajoutez une astuce ou un bon plan pour vos voisins.
+                            </li>
+                        </ul>
+                        <div class="evaluation-stats" role="list">
+                            <div class="evaluation-stat" role="listitem">
+                                <span class="evaluation-stat-value">+1 800</span>
+                                <span class="evaluation-stat-label">Avis partagés</span>
+                            </div>
+                            <div class="evaluation-stat" role="listitem">
+                                <span class="evaluation-stat-value">92%</span>
+                                <span class="evaluation-stat-label">Sentiment d'entraide</span>
+                            </div>
+                        </div>
+                        <a class="evaluation-link" href="#commentaires">Voir les avis récents</a>
+                    </aside>
+                </div>
                 </div>
             </div>
         </section>
@@ -261,6 +339,20 @@
             <div class="container">
                 <h3 id="map-title" class="section-title">Carte des quartiers</h3>
                 <div id="map" class="map-container" role="img" aria-label="Carte interactive des quartiers d'Abidjan"></div>
+                <div class="map-legend" role="list" aria-label="Légende des notes moyennes">
+                    <div class="legend-item" role="listitem">
+                        <span class="legend-dot legend-dot--positive" aria-hidden="true"></span>
+                        <span>Note élevée (4 et +)</span>
+                    </div>
+                    <div class="legend-item" role="listitem">
+                        <span class="legend-dot legend-dot--medium" aria-hidden="true"></span>
+                        <span>Note moyenne (entre 3 et 4)</span>
+                    </div>
+                    <div class="legend-item" role="listitem">
+                        <span class="legend-dot legend-dot--low" aria-hidden="true"></span>
+                        <span>Note faible (moins de 3)</span>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -268,7 +360,33 @@
         <section id="commentaires" class="comments" aria-labelledby="comments-title">
             <div class="container">
                 <h3 id="comments-title" class="section-title">Avis de la communauté</h3>
-                
+                <div class="comments-summary" role="region" aria-live="polite">
+                    <div class="summary-card">
+                        <div class="summary-header">
+                            <span class="summary-icon" aria-hidden="true">💬</span>
+                            <div>
+                                <p class="summary-title">Des retours concrets sur la vie à Abidjan</p>
+                                <p class="summary-subtitle">Chaque semaine, de nouveaux avis vérifiés rejoignent la plateforme.</p>
+                            </div>
+                        </div>
+                        <div class="summary-metrics">
+                            <div class="summary-metric">
+                                <span class="summary-metric-value">4,1/5</span>
+                                <span class="summary-metric-label">Note moyenne toutes communes</span>
+                            </div>
+                            <div class="summary-metric">
+                                <span class="summary-metric-value">3 min</span>
+                                <span class="summary-metric-label">Temps moyen pour partager un avis</span>
+                            </div>
+                            <div class="summary-metric">
+                                <span class="summary-metric-value">45</span>
+                                <span class="summary-metric-label">Nouveaux avis le mois dernier</span>
+                            </div>
+                        </div>
+                        <a class="summary-link" href="#evaluation">Ajouter le vôtre</a>
+                    </div>
+                </div>
+
                 <div class="comments-list" id="comments-list">
                     <article class="comment">
                         <div class="comment-header">
@@ -297,7 +415,7 @@
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <!-- Modal d'onboarding -->
-    <div id="onboardingModal" class="modal-overlay">
+    <div id="onboardingModal" class="modal-overlay hidden" aria-hidden="true">
         <div class="modal-content">
             <div class="modal-slides">
                 <!-- Slide 1 -->

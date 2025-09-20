@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initRatingSystem();
     // initMap(); // Supprimé - sera chargé à la demande
     initFilters();
+    initFilterShortcuts();
     initComments();
     initFormValidation();
     initSmoothScrolling();
@@ -149,13 +150,61 @@ function getRatingColor(rating) {
 // Système de filtrage
 function initFilters() {
     const communeFilter = document.getElementById('commune-filter');
-    
+
     if (communeFilter) {
         communeFilter.addEventListener('change', function() {
             const selectedCommune = this.value;
             filterContent(selectedCommune);
         });
     }
+}
+
+function initFilterShortcuts() {
+    const communeFilter = document.getElementById('commune-filter');
+    const filterChips = document.querySelectorAll('.filter-chip');
+
+    if (!communeFilter || filterChips.length === 0) {
+        return;
+    }
+
+    filterChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            const value = chip.getAttribute('data-commune-shortcut') || '';
+            communeFilter.value = value;
+            communeFilter.dispatchEvent(new Event('change', { bubbles: true }));
+
+            filterChips.forEach(btn => {
+                if (btn === chip) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        });
+    });
+
+    communeFilter.addEventListener('change', () => {
+        const currentValue = communeFilter.value;
+        let activeChip = null;
+
+        filterChips.forEach(chip => {
+            const value = chip.getAttribute('data-commune-shortcut') || '';
+            if (value === currentValue) {
+                chip.classList.add('active');
+                activeChip = chip;
+            } else {
+                chip.classList.remove('active');
+            }
+        });
+
+        if (!activeChip) {
+            filterChips.forEach(chip => {
+                if ((chip.getAttribute('data-commune-shortcut') || '') === '') {
+                    chip.classList.add('active');
+                }
+            });
+        }
+    });
 }
 
 function filterContent(commune) {
@@ -181,22 +230,30 @@ function filterContent(commune) {
 // Modal d'onboarding
 function initOnboardingModal() {
     const modal = document.getElementById('onboardingModal');
-    const slides = document.querySelectorAll('.modal-slide');
-    const indicators = document.querySelectorAll('.indicator');
-    const skipBtn = document.querySelector('.modal-btn-skip');
-    const nextBtn = document.querySelector('.modal-btn-next');
-    const startBtn = document.querySelector('.modal-btn-start');
-    
+    if (!modal) return;
+
+    const slides = modal.querySelectorAll('.modal-slide');
+    const indicators = modal.querySelectorAll('.indicator');
+    const skipBtn = modal.querySelector('.modal-btn-skip');
+    const nextBtn = modal.querySelector('.modal-btn-next');
+    const startBtn = modal.querySelector('.modal-btn-start');
+
+    if (!skipBtn || !nextBtn || !startBtn || slides.length === 0) {
+        return;
+    }
+
     let currentSlide = 0;
-    
+
     // Vérifier si l'utilisateur a déjà vu l'onboarding
     if (localStorage.getItem('onboarding-seen') === 'true') {
         modal.classList.add('hidden');
+        modal.setAttribute('aria-hidden', 'true');
         return;
     }
-    
+
     // Afficher le modal
     modal.classList.remove('hidden');
+    modal.setAttribute('aria-hidden', 'false');
     showSlide(currentSlide);
     
     // Navigation des slides
@@ -236,6 +293,7 @@ function initOnboardingModal() {
     
     function closeModal() {
         modal.classList.add('hidden');
+        modal.setAttribute('aria-hidden', 'true');
         localStorage.setItem('onboarding-seen', 'true');
     }
     
@@ -331,15 +389,15 @@ function initFormValidation() {
 function handleEvaluationSubmission(form) {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
-    
+
     // Validation des données
     if (!data.commune || !data.quartier) {
         showNotification('Veuillez sélectionner votre commune et votre quartier', 'error');
         return;
     }
-    
+
     // Vérification qu'au moins une note a été donnée
-    const hasRating = ['securite', 'proprete', 'transport'].some(criterion => data[criterion]);
+    const hasRating = ['securite', 'proprete', 'transports'].some(criterion => data[criterion]);
     if (!hasRating) {
         showNotification('Veuillez donner au moins une note', 'error');
         return;
@@ -582,6 +640,7 @@ function initStepNavigation() {
         progressSteps.forEach(step => {
             step.classList.remove('active');
             step.classList.remove('completed');
+            step.removeAttribute('aria-current');
         });
 
         // Afficher l'étape courante
@@ -594,6 +653,7 @@ function initStepNavigation() {
         
         if (currentProgressStep) {
             currentProgressStep.classList.add('active');
+            currentProgressStep.setAttribute('aria-current', 'step');
         }
 
         // Marquer les étapes précédentes comme complétées
