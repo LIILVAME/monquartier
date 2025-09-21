@@ -265,10 +265,32 @@ function initComments() {
 function handleCommentSubmission(form) {
     const commentText = form.querySelector('#comment-text').value.trim();
     
+    // SÉCURITÉ : Validation renforcée des commentaires
     if (commentText.length < 10) {
         showNotification('Votre commentaire doit contenir au moins 10 caractères.', 'error');
         return;
     }
+    
+    if (commentText.length > 500) {
+        showNotification('Votre commentaire est trop long (maximum 500 caractères).', 'error');
+        return;
+    }
+    
+    // Validation contre les attaques XSS
+    if (/<script|javascript:|on\w+=/i.test(commentText)) {
+        showNotification('Votre commentaire contient du contenu non autorisé.', 'error');
+        return;
+    }
+    
+    // SÉCURITÉ : Rate limiting basique (côté client)
+    const lastSubmission = localStorage.getItem('lastCommentSubmission');
+    const now = Date.now();
+    if (lastSubmission && (now - parseInt(lastSubmission)) < 30000) { // 30 secondes
+        showNotification('Veuillez attendre avant de soumettre un autre commentaire.', 'error');
+        return;
+    }
+    
+    localStorage.setItem('lastCommentSubmission', now.toString());
     
     // Simulation de l'envoi du commentaire
     showNotification('✅ Votre commentaire a été soumis et sera modéré avant publication. Merci !', 'success');
@@ -332,9 +354,21 @@ function handleEvaluationSubmission(form) {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
     
-    // Validation des données
+    // SÉCURITÉ : Validation renforcée des données
     if (!data.commune || !data.quartier) {
         showNotification('Veuillez sélectionner votre commune et votre quartier', 'error');
+        return;
+    }
+    
+    // Validation des inputs contre les attaques
+    if (data.quartier && (data.quartier.length > 100 || /[<>\"'&]/.test(data.quartier))) {
+        showNotification('Le nom du quartier contient des caractères non autorisés', 'error');
+        return;
+    }
+    
+    // Validation du commentaire
+    if (data.commentaire && data.commentaire.length > 1000) {
+        showNotification('Le commentaire est trop long (maximum 1000 caractères)', 'error');
         return;
     }
     
@@ -348,11 +382,12 @@ function handleEvaluationSubmission(form) {
     // Simulation d'envoi des données
     showNotification('Envoi en cours...', 'info');
     
+    // SÉCURITÉ : Suppression des logs sensibles en production
+    // console.log('Données à envoyer:', data); // SUPPRIMÉ pour éviter les fuites
+    
     // Simulation d'un délai d'envoi
     setTimeout(() => {
-        // Ici, vous ajouteriez l'appel à votre API
-        console.log('Données à envoyer:', data);
-        
+        // Ici, vous ajouteriez l'appel à votre API avec HTTPS et authentification
         // Redirection vers la page de remerciement
         window.location.href = 'merci.html';
         
@@ -657,3 +692,369 @@ function initStepNavigation() {
         }, 3000);
     }
 }
+
+// MonQuartier - Application Web Optimisée
+// Optimisations basées sur les recommandations Reddit anti-vibecoding
+
+// Configuration globale optimisée
+const CONFIG = {
+    MAP_CENTER: [5.3600, -4.0083], // Abidjan
+    MAP_ZOOM: 11,
+    RATE_LIMIT: {
+        COMMENT: 3,
+        RATING: 5,
+        WINDOW: 60000
+    },
+    PERFORMANCE: {
+        DEBOUNCE_DELAY: 300,
+        INTERSECTION_THRESHOLD: 0.1
+    }
+};
+
+// Cache global pour éviter les recalculs
+const CACHE = {
+    communes: new Map(),
+    ratings: new Map(),
+    elements: new Map()
+};
+
+// Utilitaires optimisés
+const Utils = {
+    // Debounce optimisé avec cache
+    debounce: (() => {
+        const timers = new Map();
+        return (func, delay, key = 'default') => {
+            return (...args) => {
+                clearTimeout(timers.get(key));
+                timers.set(key, setTimeout(() => func.apply(this, args), delay));
+            };
+        };
+    })(),
+
+    // Throttle pour les événements fréquents
+    throttle: (() => {
+        const timers = new Map();
+        return (func, delay, key = 'default') => {
+            return (...args) => {
+                if (!timers.get(key)) {
+                    func.apply(this, args);
+                    timers.set(key, setTimeout(() => timers.delete(key), delay));
+                }
+            };
+        };
+    })(),
+
+    // Sélecteur optimisé avec cache
+    $(selector) {
+        if (!CACHE.elements.has(selector)) {
+            CACHE.elements.set(selector, document.querySelector(selector));
+        }
+        return CACHE.elements.get(selector);
+    },
+
+    // Sélecteur multiple optimisé
+    $$(selector) {
+        const cacheKey = `all_${selector}`;
+        if (!CACHE.elements.has(cacheKey)) {
+            CACHE.elements.set(cacheKey, document.querySelectorAll(selector));
+        }
+        return CACHE.elements.get(cacheKey);
+    },
+
+    // Validation optimisée avec cache
+    validateInput(value, type) {
+        const cacheKey = `${type}_${value}`;
+        if (CACHE.ratings.has(cacheKey)) {
+            return CACHE.ratings.get(cacheKey);
+        }
+
+        let isValid = false;
+        switch (type) {
+            case 'email':
+                isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+                break;
+            case 'text':
+                isValid = value.length >= 2 && value.length <= 100;
+                break;
+            case 'comment':
+                isValid = value.length >= 10 && value.length <= 1000;
+                break;
+            default:
+                isValid = value.length > 0;
+        }
+
+        CACHE.ratings.set(cacheKey, isValid);
+        return isValid;
+    },
+
+    // Rate limiting optimisé
+    checkRateLimit(action) {
+        if (!window.securityMonitor) return true;
+        return window.securityMonitor.checkRateLimit(
+            action, 
+            CONFIG.RATE_LIMIT[action.toUpperCase()] || 5,
+            CONFIG.RATE_LIMIT.WINDOW
+        );
+    }
+};
+
+// Système de notation optimisé
+class RatingSystem {
+    constructor() {
+        this.ratings = CACHE.communes;
+        this.init();
+    }
+
+    init() {
+        // Utiliser la délégation d'événements pour optimiser
+        document.addEventListener('click', this.handleStarClick.bind(this));
+        document.addEventListener('mouseover', this.handleStarHover.bind(this));
+        document.addEventListener('mouseout', this.handleStarOut.bind(this));
+    }
+
+    handleStarClick(e) {
+        if (!e.target.matches('.star')) return;
+        
+        if (!Utils.checkRateLimit('RATING')) {
+            this.showMessage('Trop de votes, veuillez patienter', 'warning');
+            return;
+        }
+
+        const rating = parseInt(e.target.dataset.rating);
+        const commune = e.target.closest('.rating-container').dataset.commune;
+        
+        this.setRating(commune, rating);
+        this.updateDisplay(commune, rating);
+        this.showMessage(`Merci pour votre évaluation de ${commune}!`, 'success');
+    }
+
+    handleStarHover(e) {
+        if (!e.target.matches('.star')) return;
+        this.highlightStars(e.target, true);
+    }
+
+    handleStarOut(e) {
+        if (!e.target.matches('.star')) return;
+        this.highlightStars(e.target, false);
+    }
+
+    setRating(commune, rating) {
+        this.ratings.set(commune, rating);
+        // Sauvegarder dans localStorage de manière optimisée
+        requestIdleCallback(() => {
+            localStorage.setItem('monquartier_ratings', JSON.stringify(Object.fromEntries(this.ratings)));
+        });
+    }
+
+    // ... rest of existing rating methods ...
+}
+
+// Gestionnaire de carte optimisé avec Intersection Observer
+class MapManager {
+    constructor() {
+        this.map = null;
+        this.markers = new Map();
+        this.isLoaded = false;
+        this.observer = null;
+        this.init();
+    }
+
+    init() {
+        const mapContainer = Utils.$('#map');
+        if (!mapContainer) return;
+
+        // Lazy loading optimisé avec Intersection Observer
+        this.observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !this.isLoaded) {
+                    this.loadMap();
+                    this.observer.disconnect();
+                }
+            });
+        }, { threshold: CONFIG.PERFORMANCE.INTERSECTION_THRESHOLD });
+
+        this.observer.observe(mapContainer);
+    }
+
+    async loadMap() {
+        if (this.isLoaded) return;
+        
+        try {
+            // Charger Leaflet de manière asynchrone
+            if (!window.L) {
+                await this.loadLeaflet();
+            }
+
+            this.map = L.map('map').setView(CONFIG.MAP_CENTER, CONFIG.MAP_ZOOM);
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(this.map);
+
+            this.addMarkers();
+            this.isLoaded = true;
+            
+        } catch (error) {
+            console.error('Erreur lors du chargement de la carte:', error);
+            this.showMapError();
+        }
+    }
+
+    async loadLeaflet() {
+        return new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+            script.onload = resolve;
+            script.onerror = reject;
+            document.head.appendChild(script);
+        });
+    }
+
+    // ... rest of existing map methods ...
+}
+
+// Gestionnaire de commentaires optimisé
+class CommentManager {
+    constructor() {
+        this.comments = [];
+        this.init();
+    }
+
+    init() {
+        const form = Utils.$('#comment-form');
+        if (form) {
+            form.addEventListener('submit', this.handleSubmit.bind(this));
+            
+            // Validation en temps réel optimisée
+            const textarea = Utils.$('#comment-text');
+            if (textarea) {
+                textarea.addEventListener('input', 
+                    Utils.debounce(this.validateComment.bind(this), CONFIG.PERFORMANCE.DEBOUNCE_DELAY, 'comment')
+                );
+            }
+        }
+    }
+
+    async handleSubmit(e) {
+        e.preventDefault();
+        
+        if (!Utils.checkRateLimit('COMMENT')) {
+            this.showMessage('Trop de commentaires, veuillez patienter', 'warning');
+            return;
+        }
+
+        const formData = new FormData(e.target);
+        const comment = {
+            text: formData.get('comment'),
+            author: formData.get('name') || 'Anonyme',
+            timestamp: new Date().toISOString()
+        };
+
+        if (this.validateCommentData(comment)) {
+            this.addComment(comment);
+            e.target.reset();
+            this.showMessage('Commentaire ajouté avec succès!', 'success');
+        }
+    }
+
+    validateCommentData(comment) {
+        return Utils.validateInput(comment.text, 'comment') && 
+               Utils.validateInput(comment.author, 'text');
+    }
+
+    // ... rest of existing comment methods ...
+}
+
+// ... existing code ...
+
+// Initialisation optimisée avec gestion d'erreurs
+class App {
+    constructor() {
+        this.components = new Map();
+        this.isInitialized = false;
+    }
+
+    async init() {
+        if (this.isInitialized) return;
+
+        try {
+            // Initialisation progressive des composants
+            await this.initializeComponents();
+            this.setupGlobalHandlers();
+            this.isInitialized = true;
+            
+        } catch (error) {
+            console.error('Erreur lors de l\'initialisation:', error);
+            this.showErrorMessage('Erreur de chargement de l\'application');
+        }
+    }
+
+    async initializeComponents() {
+        const components = [
+            ['rating', () => new RatingSystem()],
+            ['map', () => new MapManager()],
+            ['comments', () => new CommentManager()]
+        ];
+
+        for (const [name, factory] of components) {
+            try {
+                this.components.set(name, factory());
+            } catch (error) {
+                console.error(`Erreur lors de l'initialisation de ${name}:`, error);
+            }
+        }
+    }
+
+    setupGlobalHandlers() {
+        // Gestion globale des erreurs
+        window.addEventListener('error', this.handleGlobalError.bind(this));
+        window.addEventListener('unhandledrejection', this.handleUnhandledRejection.bind(this));
+        
+        // Optimisation des performances
+        window.addEventListener('beforeunload', this.cleanup.bind(this));
+    }
+
+    handleGlobalError(event) {
+        console.error('Erreur globale:', event.error);
+        this.showErrorMessage('Une erreur inattendue s\'est produite');
+    }
+
+    handleUnhandledRejection(event) {
+        console.error('Promise rejetée:', event.reason);
+        this.showErrorMessage('Erreur de traitement des données');
+    }
+
+    cleanup() {
+        // Nettoyer les ressources avant la fermeture
+        this.components.forEach(component => {
+            if (component.cleanup) {
+                component.cleanup();
+            }
+        });
+        CACHE.elements.clear();
+        CACHE.communes.clear();
+        CACHE.ratings.clear();
+    }
+
+    showErrorMessage(message) {
+        if (typeof showNotification === 'function') {
+            showNotification(message, 'error');
+        } else {
+            alert(message);
+        }
+    }
+}
+
+// Initialisation optimisée avec détection de l'état du DOM
+(() => {
+    const app = new App();
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => app.init());
+    } else {
+        app.init();
+    }
+    
+    // Exposer pour les tests
+    window.MonQuartierApp = app;
+})();

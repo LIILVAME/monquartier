@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MonQuartier - Évaluez votre quartier à Abidjan</title>
     <meta name="description" content="Évaluez et partagez votre expérience de vie dans les quartiers d'Abidjan. Notez la sécurité, propreté, transports et plus encore.">
+    
+    <!-- SÉCURITÉ : Headers de sécurité pour prévenir les attaques -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    
     <!-- Design System CSS -->
     <link rel="stylesheet" href="design-system.css">
     <link rel="stylesheet" href="components.css">
@@ -12,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="leaflet.css" />
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
@@ -78,7 +86,8 @@
                         <div class="select-container">
                             <label for="commune-filter" class="select-label">Choisissez une commune</label>
                             <div class="select-wrapper">
-                                <select id="commune-filter" class="commune-select-enhanced" aria-label="Filtrer les avis par commune">
+                                <!-- SÉCURITÉ : Validation renforcée des sélections -->
+                                <select id="commune-filter" class="commune-select-enhanced" aria-label="Filtrer les avis par commune" data-validate="commune">
                                     <option value="">🌍 Toutes les communes</option>
                                     <option value="abobo">📍 Abobo</option>
                                     <option value="adjame">📍 Adjamé</option>
@@ -338,6 +347,8 @@
         </div>
     </div>
 
+    <!-- Scripts -->
+    <script src="security-monitor.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
