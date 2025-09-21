@@ -837,6 +837,83 @@ textarea:focus {
     box-shadow: var(--shadow-md);
 }
 
+.map-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: var(--spacing-xl);
+    text-align: center;
+    background-color: var(--bg-primary);
+}
+
+.map-error .error-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+    opacity: 0.6;
+}
+
+.map-error h3 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--font-size-lg);
+}
+
+.map-error p {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-lg);
+    max-width: 300px;
+}
+
+.map-error .retry-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.map-error .retry-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+.map-popup {
+    text-align: center;
+    padding: var(--spacing-sm);
+}
+
+.map-popup h3 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+    font-size: var(--font-size-base);
+}
+
+.map-popup p {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    text-transform: capitalize;
+}
+
+.map-popup button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+    transition: background-color 0.2s ease;
+}
+
+.map-popup button:hover {
+    background-color: var(--primary-dark);
+}
+
 /* Section Commentaires */
 .comments {
     padding: var(--spacing-2xl) 0;

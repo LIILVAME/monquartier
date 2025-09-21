@@ -880,6 +880,18 @@ class MapManager {
         if (this.isLoaded) return;
         
         try {
+            // Vérifier si le container existe et n'est pas déjà initialisé
+            const mapContainer = Utils.$('#map');
+            if (!mapContainer) {
+                throw new Error('Container de carte non trouvé');
+            }
+
+            // Nettoyer le container s'il existe déjà une carte
+            if (mapContainer._leaflet_id) {
+                mapContainer._leaflet_id = null;
+                mapContainer.innerHTML = '';
+            }
+
             // Charger Leaflet de manière asynchrone
             if (!window.L) {
                 await this.loadLeaflet();
@@ -893,6 +905,7 @@ class MapManager {
 
             this.addMarkers();
             this.isLoaded = true;
+            console.log('🗺️ Carte chargée avec succès');
             
         } catch (error) {
             console.error('Erreur lors du chargement de la carte:', error);
@@ -910,7 +923,65 @@ class MapManager {
         });
     }
 
-    // ... rest of existing map methods ...
+    addMarkers() {
+        if (!this.map) return;
+
+        // Données des quartiers d'Abidjan avec leurs coordonnées
+        const quartiers = [
+            { nom: 'Cocody', lat: 5.3447, lng: -3.9866, type: 'residentiel' },
+            { nom: 'Plateau', lat: 5.3197, lng: -4.0267, type: 'business' },
+            { nom: 'Adjamé', lat: 5.3669, lng: -4.0267, type: 'commercial' },
+            { nom: 'Yopougon', lat: 5.3364, lng: -4.0267, type: 'populaire' },
+            { nom: 'Marcory', lat: 5.2833, lng: -3.9833, type: 'mixte' },
+            { nom: 'Treichville', lat: 5.2833, lng: -4.0167, type: 'commercial' },
+            { nom: 'Koumassi', lat: 5.2833, lng: -3.9500, type: 'populaire' },
+            { nom: 'Port-Bouët', lat: 5.2500, lng: -3.9167, type: 'mixte' }
+        ];
+
+        quartiers.forEach(quartier => {
+            const marker = L.marker([quartier.lat, quartier.lng])
+                .addTo(this.map)
+                .bindPopup(`
+                    <div class="map-popup">
+                        <h3>${quartier.nom}</h3>
+                        <p>Type: ${quartier.type}</p>
+                        <button onclick="window.scrollTo({top: document.getElementById('evaluer').offsetTop, behavior: 'smooth'})">
+                            Évaluer ce quartier
+                        </button>
+                    </div>
+                `);
+            
+            this.markers.set(quartier.nom, marker);
+        });
+    }
+
+    showMapError() {
+        const mapContainer = Utils.$('#map');
+        if (mapContainer) {
+            mapContainer.innerHTML = `
+                <div class="map-error">
+                    <div class="error-icon">🗺️</div>
+                    <h3>Erreur de chargement de la carte</h3>
+                    <p>Impossible de charger la carte interactive. Veuillez vérifier votre connexion internet.</p>
+                    <button onclick="location.reload()" class="retry-btn">
+                        Réessayer
+                    </button>
+                </div>
+            `;
+        }
+    }
+
+    destroy() {
+        if (this.map) {
+            this.map.remove();
+            this.map = null;
+        }
+        if (this.observer) {
+            this.observer.disconnect();
+        }
+        this.markers.clear();
+        this.isLoaded = false;
+    }
 }
 
 // Gestionnaire de commentaires optimisé
